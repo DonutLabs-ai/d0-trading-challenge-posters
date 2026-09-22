@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Posters vs. Figma</title>
+<style>
+  body { margin: 0; padding: 24px; background: #0b0813; color: #e9e4f5;
+         font: 13px/1.5 ui-sans-serif, system-ui, sans-serif; }
+  h1 { font-size: 15px; font-weight: 600; margin: 0 0 4px; }
+  .hint { color: #a89dc4; margin: 0 0 24px; }
+  .row { margin-bottom: 36px; }
+  .row h2 { font-size: 13px; font-weight: 600; margin: 0 0 8px; color: #c9bff0; }
+  .pair { display: flex; gap: 16px; align-items: flex-start; flex-wrap: wrap; }
+  .cell { position: relative; overflow: hidden; background: #000; }
+  .cell > * { position: absolute; left: 0; top: 0; border: 0; }
+  .cell iframe { transform-origin: top left; }
+  .cell img { transform-origin: top left; }
+  .diff img { mix-blend-mode: difference; }
+  .cap { color: #a89dc4; margin-top: 6px; font-size: 12px; }
+  label { display: inline-flex; gap: 6px; align-items: center; margin-right: 16px; }
+</style>
+</head>
+<body>
+
+<h1>Posters vs. Figma</h1>
+<p class="hint">Left: the HTML poster. Middle: the frame rendered by Figma. Right: the two blended with
+<code>difference</code> — black means they match, anything bright is drift. Everything is shown at 40%.</p>
+
+<div id="out"></div>
+
+<script>
+const SCALE = 0.4;
+const POSTERS = [
+  { file: "01-roadmap.html", ref: "01-roadmap-696x1237.webp",  w: 696,  h: 1237 },
+  { file: "02-levels.html",  ref: "02-levels-1200x675.webp",   w: 1200, h: 675 },
+  { file: "03-signup.html",  ref: "03-signup-675x1200.webp",   w: 675,  h: 1200 },
+  { file: "04-poster.html",  ref: "04-poster-1024x1401.webp",  w: 1024, h: 1401 },
+  { file: "05-rules.html",   ref: "05-rules-1200x675.webp",    w: 1200, h: 675 },
+];
+
+const out = document.getElementById("out");
+for (const p of POSTERS) {
+  const w = p.w * SCALE, h = p.h * SCALE;
+  const frame = () =>
+    `<iframe src="../posters/${p.file}" width="${p.w}" height="${p.h}" scrolling="no"
+             style="transform:scale(${SCALE})"></iframe>`;
+  const ref = () =>
+    `<img src="../reference/${p.ref}" width="${p.w}" height="${p.h}" style="transform:scale(${SCALE})">`;
+  out.insertAdjacentHTML("beforeend", `
+    <div class="row">
+      <h2>${p.file} — ${p.w} × ${p.h}</h2>
+      <div class="pair">
+        <div><div class="cell" style="width:${w}px;height:${h}px">${frame()}</div><div class="cap">HTML</div></div>
+        <div><div class="cell" style="width:${w}px;height:${h}px">${ref()}</div><div class="cap">Figma</div></div>
+        <div><div class="cell diff" style="width:${w}px;height:${h}px">${frame()}${ref()}</div><div class="cap">difference</div></div>
+      </div>
+    </div>`);
+}
+</script>
+
+</body>
+</html>

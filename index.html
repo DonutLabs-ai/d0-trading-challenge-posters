@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>D0 Trading Challenge · posters</title>
+<link rel="stylesheet" href="assets/css/poster.css">
+<style>
+  body.sheet h1 { font-size: 20px; font-weight: 600; margin: 0 0 6px; }
+  body.sheet p.lede { color: #a89dc4; margin: 0 0 32px; max-width: 62ch; }
+  body.sheet .frame { position: relative; }
+  body.sheet .frame iframe { position: absolute; left: 0; top: 0; border: 0; transform-origin: top left; }
+</style>
+</head>
+<body class="sheet">
+
+<h1>D0 Trading Challenge</h1>
+<p class="lede">Five key visuals, rebuilt from Figma as exact-size HTML. Copy and dates are live text —
+edit the HTML, re-run <code>npm run export</code>, and you get the PNGs back at the same pixel size.</p>
+
+<div class="grid" id="grid"></div>
+
+<script>
+const POSTERS = [
+  { file: "01-roadmap.html", w: 696,  h: 1237, name: "7 levels roadmap" },
+  { file: "02-levels.html",  w: 1200, h: 675,  name: "7 Levels · Twitter" },
+  { file: "03-signup.html",  w: 675,  h: 1200, name: "Sign up · portrait" },
+  { file: "04-poster.html",  w: 1024, h: 1401, name: "Key visual" },
+  { file: "05-rules.html",   w: 1200, h: 675,  name: "Rules · Twitter" },
+];
+const COL = 340;
+document.getElementById("grid").innerHTML = POSTERS.map((p) => {
+  const s = COL / p.w;
+  return `<figure>
+    <a href="posters/${p.file}">
+      <div class="frame" style="width:${COL}px;height:${Math.round(p.h * s)}px">
+        <iframe src="posters/${p.file}" width="${p.w}" height="${p.h}" scrolling="no"
+                style="transform:scale(${s})" title="${p.name}"></iframe>
+      </div>
+    </a>
+    <figcaption>${p.name} · ${p.w} × ${p.h}</figcaption>
+  </figure>`;
+}).join("");
+</script>
+
+</body>
+</html>

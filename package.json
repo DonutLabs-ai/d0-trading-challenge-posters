@@ -1,0 +1,15 @@
+{
+  "name": "d0-trading-challenge-posters",
+  "version": "1.0.0",
+  "private": true,
+  "description": "The D0 Trading Challenge key visuals, rebuilt as exact-size HTML you can re-export at any time.",
+  "type": "module",
+  "scripts": {
+    "export": "node tools/export.mjs",
+    "export:2x": "node tools/export.mjs --2x",
+    "serve": "python3 -m http.server 4321"
+  },
+  "devDependencies": {
+    "playwright": "^1.49.0"
+  }
+}
