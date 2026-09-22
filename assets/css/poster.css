@@ -75,10 +75,10 @@ html, body {
 /* Glass ------------------------------------------------------------------- */
 .glass {
   background: rgba(0, 0, 0, 0.2);
-  backdrop-filter: blur(24px) saturate(1.1);
-  -webkit-backdrop-filter: blur(24px) saturate(1.1);
+  backdrop-filter: blur(40px) saturate(1.1);
+  -webkit-backdrop-filter: blur(40px) saturate(1.1);
 }
-.glass-edge { fill: none; stroke: rgba(255, 255, 255, 0.45); stroke-width: 1; }
+.glass-edge { fill: none; stroke: rgba(255, 255, 255, 0.25); stroke-width: 1; }
 
 /* Contact sheet ----------------------------------------------------------- */
 body.sheet { padding: 40px; font-family: "Geist", Arial, sans-serif; color: #e9e4f5; }
@@ -91,4 +91,9 @@ body.sheet .frame { overflow: hidden; border-radius: 8px; background: #000; }
 /* Figma text boxes can be taller than their copy. When the frame says
    textAlignVertical: CENTER the block is centred in that box, so the element
    keeps the Figma height and centres its own lines. */
-.vc { display: grid; align-content: center; }
+.vc {
+  /* Block-level align-content: centres the lines inside the element's own height
+     without turning <b> runs into grid items, which would break each one onto its
+     own row. Browsers without it just top-align, which is the Figma box top. */
+  align-content: center;
+}

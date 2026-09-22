@@ -54,12 +54,26 @@ in `05`, the Donut lockup) is real HTML and SVG.
 the HTML, the Figma render and a `difference` blend of the two side by side — black means they agree.
 (The blend needs a real browser; iframes come out empty in some embedded preview panes.)
 
-Known gaps, all small:
+Measured against those references, pixel for pixel:
 
+| Poster | mean Δ / 255 | 95th pct | pixels off by > 32 |
+| --- | --- | --- | --- |
+| 01-roadmap | 7.7 | 21 | 1.4 % |
+| 02-levels | 2.9 | 8 | 0.8 % |
+| 03-signup | 6.2 | 19 | 3.0 % |
+| 04-poster | 6.2 | 16 | 0.5 % |
+| 05-rules | 6.2 | 13 | 3.1 % |
+
+Known gaps, all small, and all of them accounted for above:
+
+- `01` and `03` carry film grain. Grain is random, so it never matches pixel for pixel — what is
+  matched is its statistics: the shadow lift and the high-frequency energy are both within a few
+  percent of the Figma render.
 - Type sits within about 1–4 px of the Figma render. Figma and CSS place the first line in a line box
   slightly differently, and the two disagree by a few px at 76–84 px display sizes.
-- The glass card in `05` is CSS `backdrop-filter`, not Figma's Glass effect. Same read, slightly less
-  refraction at the edges.
+- The glass card and button in `05` are CSS `backdrop-filter`, not Figma's Glass effect. The tint and
+  blur were fitted against the reference; what is left is Figma's edge refraction, which CSS has no
+  equivalent for.
 - `Instrument Serif` sets a little narrower here than in Figma — about 4 % on a long all-caps line.
 
 ## Fonts
